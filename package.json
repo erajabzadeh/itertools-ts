@@ -1,0 +1,47 @@
+{
+  "name": "itertools-ts",
+  "version": "0.0.1",
+  "description": "ES6+ iterator tools",
+  "main": "index.js",
+  "scripts": {
+    "clean": "rimraf ./dist",
+    "test": "jest",
+    "lint": "eslint src --ext .ts",
+    "prebuild": "npm run clean",
+    "build": "tsc -p ./tsconfig.json"
+  },
+  "author": "erajabzadeh",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/jest": "^26.0.23",
+    "@types/node": "^15.12.4",
+    "@typescript-eslint/eslint-plugin": "^4.28.0",
+    "@typescript-eslint/parser": "^4.28.0",
+    "eslint": "^7.29.0",
+    "jest": "^27.0.5",
+    "prettier": "^2.3.1",
+    "rimraf": "^3.0.2",
+    "ts-jest": "^27.0.3",
+    "typescript": "^4.3.4"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node",
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "src/**/*.ts"
+    ],
+    "testRegex": "test",
+    "transform": {
+      "^.+\\.ts$$": "ts-jest"
+    },
+    "coverageThreshold": {
+      "global": {
+        "branches": 100,
+        "functions": 100,
+        "lines": 100,
+        "statements": 100
+      }
+    }
+  }
+}
