@@ -6,9 +6,11 @@
   "scripts": {
     "clean": "rimraf ./dist",
     "test": "jest",
+    "benchmark": "npm run build:benchmark && node ./dist/benchmark",
     "lint": "eslint src --ext .ts",
     "prebuild": "npm run clean",
-    "build": "tsc -p ./tsconfig.json"
+    "build": "tsc -p ./tsconfig.build.json",
+    "build:benchmark": "tsc -p ./tsconfig.benchmark.json"
   },
   "author": "erajabzadeh",
   "license": "MIT",
@@ -19,6 +21,7 @@
     "@typescript-eslint/parser": "^4.28.0",
     "eslint": "^7.29.0",
     "jest": "^27.0.5",
+    "noop-stream": "^0.1.0",
     "prettier": "^2.3.1",
     "rimraf": "^3.0.2",
     "ts-jest": "^27.0.3",
