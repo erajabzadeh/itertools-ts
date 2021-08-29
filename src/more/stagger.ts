@@ -1,3 +1,4 @@
+import { strict as assert } from 'assert';
 /**
  *
  * @param iterable
@@ -6,17 +7,21 @@
  * @param fillValue
  * @returns
  */
-export default function* stagger<T, F = any>(
+export default function* stagger<T, F>(
   iterable: Iterable<T>,
   offsets = [-1, 0, 1],
-  longest = false,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  _longest = false,
   fillValue?: F
 ): Generator<(T | F | undefined)[], void, (T | F)[] & undefined> {
+  assert.ok(iterable, `'iterable' cannot be falsy`);
+  assert.ok(offsets, `'offsets' cannot be falsy`);
+
   const maxOffset = Math.max(...offsets);
   const minOffset = Math.min(...offsets);
-  const buffer: T[] = [];
+  const window: T[] = [];
 
-  if (offsets?.length <= 0) {
+  if (!offsets.length) {
     return;
   }
 
@@ -30,21 +35,18 @@ export default function* stagger<T, F = any>(
       break;
     }
 
-    buffer.push(value);
-    const slack = buffer.length - maxOffset - 1;
+    window.push(value);
+
+    const slack = window.length - Math.max(maxOffset, 0) - 1;
     if (slack < 0) {
       continue;
     } else if (slack > Math.abs(minOffset)) {
-      buffer.shift();
+      window.shift();
     }
 
     yield offsets.map(
       (offset) =>
-        buffer[offset + Math.max(buffer.length - maxOffset - 1, 0)] || fillValue
+        window[offset + Math.max(window.length - maxOffset - 1, 0)] || fillValue
     );
-  }
-
-  if (longest) {
-    // TODO
   }
 }

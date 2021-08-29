@@ -5,7 +5,7 @@
  * @param fillValue Fill value to use when window size larger than input length
  * @param step Number of elements to skip in successive windows
  */
-export default function* windowed<T, F = any>(
+export default function* windowed<T, F>(
   iterable: Iterable<T>,
   n = 1,
   fillValue?: T | F,
